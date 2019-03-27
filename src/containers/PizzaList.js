@@ -6,7 +6,7 @@ class PizzaList extends Component {
     // console.log(this.props)
     // console.log(this.props.handleEditClick);
     return this.props.pizzas.map(pizza => {
-      return <Pizza key={pizza.id} pizza={pizza} editPizza={this.props.handleEditClick} />
+      return <Pizza key={pizza.id} pizza={pizza} sendPizza={this.props.sendPizza} />
     })
   }
 

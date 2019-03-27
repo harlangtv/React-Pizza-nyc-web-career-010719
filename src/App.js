@@ -5,7 +5,7 @@ import PizzaList from './containers/PizzaList'
 class App extends Component {
   state = {
     pizzas: [],
-    formPizza: {}
+    clickedPizza: []
   }
 
   componentDidMount() {
@@ -17,13 +17,25 @@ class App extends Component {
     )
   }
 
-  handleEditClick = (key) => {
-    console.log('clicking edit');
-    console.log(key)
-    //1. have access to the pizza id in pizza
-    //2. need to get id from pizza to app in order to pass the correct pizza to the PizzaForm
-    //3. use that id to identify which pizza i've clicked
+  // handleEditClick = (event) => {
+  //   console.log('clicking edit');
+  //   console.log(event);
+  //   // console.log(event.target.dataset.id)
+  //   //1. have access to the pizza id in pizza
+  //   //2. need to get id from pizza to app in order to pass the correct pizza to the PizzaForm
+  //   //3. use that id to identify which pizza i've clicked
+  // }
+  sendPizza = (pizzaID) => {
+    let currentPizza = this.state.pizzas.filter(pizza => {
+      if(pizza.id === pizzaID){
+        return pizza
+      }
+    })
+    this.setState({
+      clickedPizza: currentPizza[0]
+    })
   }
+
 
 
   render() {
@@ -31,10 +43,12 @@ class App extends Component {
     return (
       <Fragment>
         <Header/>
-        <PizzaForm/>
+        <PizzaForm
+          editPizza={this.state.clickedPizza}
+          />
         <PizzaList
           pizzas={this.state.pizzas}
-          handleEditClick={this.handleEditClick}
+          sendPizza={this.sendPizza}
           />
       </Fragment>
     );
